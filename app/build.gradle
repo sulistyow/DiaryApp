@@ -1,0 +1,141 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'io.realm.kotlin'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
+}
+
+android {
+    namespace 'com.sulistyo.diaryapp'
+    compileSdk ProjectConfig.compileSdk
+
+    defaultConfig {
+        applicationId "com.sulistyo.diaryapp"
+        minSdk ProjectConfig.minSdk
+        targetSdk ProjectConfig.targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+        coreLibraryDesugaringEnabled true
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion ProjectConfig.extensionVersion
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+
+    implementation libs.core.ktx.v1131
+    implementation libs.kotlin.bom
+    implementation libs.lifecycle.runtime.ktx.v270
+    implementation libs.activity.compose.v190
+    implementation libs.compose.bom
+    implementation libs.ui
+    implementation libs.ui.graphics
+    implementation libs.ui.tooling.preview
+    implementation libs.material3
+    testImplementation libs.junit
+    androidTestImplementation libs.junit.ext
+    androidTestImplementation libs.espresso.core
+    androidTestImplementation libs.compose.bom.v20221000
+    androidTestImplementation libs.ui.test.junit4
+    debugImplementation libs.ui.tooling
+    debugImplementation libs.ui.test.manifest
+
+    implementation libs.core.google.shortcuts
+
+    // compose navigation
+    implementation libs.navigation.compose
+
+    // firebase
+    implementation libs.firebase.auth.ktx.v2300
+    implementation libs.firebase.storage.ktx.v2100
+
+    // room components
+    implementation libs.room.runtime.v261
+    kapt libs.room.compiler.v261
+    implementation libs.room.ktx.v261
+
+    // runtime compose
+    implementation libs.lifecycle.runtime.compose.v270
+
+    // splash api
+    implementation libs.core.splashscreen.v101
+
+    // mongo db realm
+    implementation(libs.coroutines.core) {
+        version {
+            strictly('1.6.0-native-mt')
+        }
+    }
+    implementation libs.library.sync.v180
+
+    // dagger
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler.v246
+    implementation libs.hilt.navigation.compose.v120
+
+    // google authA
+//    implementation 'com.google.android.gms:play-services-auth:20.5.0'
+
+    //coil
+    implementation libs.coil
+
+    // pager
+    implementation libs.accompanist.pager
+
+    // message bar compose
+    implementation libs.message.bar.compose
+
+    // one tap compose
+    implementation libs.one.tap.compose
+
+    // desugar jdk
+    coreLibraryDesugaring libs.desugar.jdk.libs.v204
+
+
+    // datetime picker
+    implementation libs.date.time.picker
+
+    // CALENDAR
+    implementation libs.date.dialog
+
+    // CLOCK
+    implementation libs.time.dialog
+
+    implementation(project(":core:ui"))
+    implementation(project(":core:util"))
+    implementation(project(":data:mongo"))
+    implementation(project(":feature:auth"))
+    implementation(project(":feature:home"))
+    implementation(project(":feature:write"))
+
+}
